@@ -6,6 +6,8 @@ require 'redis'
 
 redis = Redis.new
 
+configure { set :server, :puma }
+
 before do
   content_type :json
 end
