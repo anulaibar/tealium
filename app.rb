@@ -17,7 +17,18 @@ get '/' do
   redis.get('json')
 end
 
+get '/flush' do
+  content_type :json
+  redis.set('json', '{}')
+  {message: 'Request log flushed.'}.to_json
+end
+
 post '/' do
-  body = request.params['data']
-  redis.set('json', body)
+  # handle åäö
+  param = request.params['data'].force_encoding("ISO-8859-1").encode("UTF-8")
+  data = JSON.parse(param)
+  json = JSON.parse(redis.get('json'))
+  key = Time.now.strftime "%Y-%m-%d %H:%M:%S"
+  json[key] = data['data']
+  redis.set('json', json.to_json)
 end
