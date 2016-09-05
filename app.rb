@@ -10,15 +10,17 @@ configure do
   enable :cross_origin
 end
 
+before do
+  content_type :json, charset: 'utf-8'
+end
+
 redis = Redis.new
 
 get '/' do
-  content_type :json
   redis.get('json')
 end
 
 get '/flush' do
-  content_type :json
   redis.set('json', '[]')
   {message: 'Request log flushed.'}.to_json
 end
