@@ -18,6 +18,6 @@ get '/' do
 end
 
 post '/' do
-  body = request.body.read
+  body = request.params['data']
   redis.set('json', body)
 end
