@@ -1,18 +1,19 @@
 #!/usr/bin/ruby
 
 require 'sinatra'
+require 'sinatra/cross_origin'
 require 'json'
 require 'redis'
 
-redis = Redis.new
-
-configure { set :server, :puma }
-
-before do
-  content_type :json
+configure do
+  set :server, :puma
+  enable :cross_origin
 end
 
+redis = Redis.new
+
 get '/' do
+  content_type :json
   redis.get('json')
 end
 
