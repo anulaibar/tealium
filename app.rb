@@ -10,7 +10,7 @@ configure do
 end
 
 before do
-  content_type :json, charset: 'utf-8'
+  content_type :json
 end
 
 redis = Redis.new
