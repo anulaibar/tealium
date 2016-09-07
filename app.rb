@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-
 require 'sinatra'
 require 'sinatra/cross_origin'
 require 'json'
@@ -44,18 +43,16 @@ get '/qa/flush' do
 end
 
 post '/dev' do
-  # handle åäö
-  param = request.params['data'].force_encoding("ISO-8859-1").encode("UTF-8")
-  data = JSON.parse(param)['data']
+  decoded = request.params['data'].force_encoding('iso-8859-1').encode('utf-8')
+  data = JSON.parse(decoded)['data']
   json = JSON.parse(redis.get('dev'))
   json.unshift(data)
   redis.set('dev', json.to_json)
 end
 
 post '/qa' do
-  # handle åäö
-  param = request.params['data'].force_encoding("ISO-8859-1").encode("UTF-8")
-  data = JSON.parse(param)['data']
+  decoded = request.params['data'].force_encoding('iso-8859-1').encode('utf-8')
+  data = JSON.parse(decoded)['data']
   json = JSON.parse(redis.get('qa'))
   json.unshift(data)
   redis.set('qa', json.to_json)
