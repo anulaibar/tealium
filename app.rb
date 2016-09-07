@@ -43,7 +43,7 @@ get '/qa/flush' do
 end
 
 post '/dev' do
-  decoded = request.params['data'].force_encoding('iso-8859-1').encode('utf-8')
+  decoded = request.params['data'].force_encoding('iso-8859-1')
   data = JSON.parse(decoded)['data']
   json = JSON.parse(redis.get('dev'))
   json.unshift(data)
@@ -51,7 +51,7 @@ post '/dev' do
 end
 
 post '/qa' do
-  decoded = request.params['data'].force_encoding('iso-8859-1').encode('utf-8')
+  decoded = request.params['data'].force_encoding('iso-8859-1')
   data = JSON.parse(decoded)['data']
   json = JSON.parse(redis.get('qa'))
   json.unshift(data)
