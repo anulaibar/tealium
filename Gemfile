@@ -6,8 +6,7 @@ gem 'sinatra'
 gem 'sinatra-cross_origin'
 gem 'redis'
 gem 'json'
-
+gem 'pry'
 group :development do
-  gem 'pry'
   gem 'pry-byebug'
 end
