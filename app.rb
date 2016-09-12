@@ -9,10 +9,6 @@ configure do
   enable :cross_origin
 end
 
-before do
-  content_type :json
-end
-
 redis = Redis.new
 
 get '/' do
