@@ -43,7 +43,7 @@ get '/qa/flush' do
 end
 
 post '/dev' do
-  decoded = request.params['data'].force_encoding('iso-8859-1')
+  decoded = request.params['data']
   data = JSON.parse(decoded)['data']
   json = JSON.parse(redis.get('dev'))
   json.unshift(data)
