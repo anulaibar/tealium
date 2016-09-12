@@ -39,16 +39,14 @@ get '/qa/flush' do
 end
 
 post '/dev' do
-  decoded = request.params['data']
-  data = JSON.parse(decoded)['data']
+  data = JSON.parse(request.params['data'])['data']
   json = JSON.parse(redis.get('dev'))
   json.unshift(data)
   redis.set('dev', json.to_json)
 end
 
 post '/qa' do
-  decoded = request.params['data'].force_encoding('iso-8859-1')
-  data = JSON.parse(decoded)['data']
+  data = JSON.parse(request.params['data'])['data']
   json = JSON.parse(redis.get('qa'))
   json.unshift(data)
   redis.set('qa', json.to_json)
